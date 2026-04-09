@@ -44,3 +44,4 @@ export ETH_RPC_URL="https://ethereum.publicnode.com"
 - Oracle proxy (NAV/APY): `0x0618BD112C396060d2b37B537b3d92e757644169`
 - The contract is an EIP-1967 proxy.
 - `xaue_get_nav` and `xaue_get_apy` are read from the oracle proxy.
+- `xaue_get_reserves` currently uses 3 fixed mock reserve addresses and queries XAUt via `balanceOf`.

@@ -9,7 +9,13 @@ app = FastMCP("xaue-mcp")
 
 XAUE_CONTRACT_ADDRESS = "0xd5D6840ed95F58FAf537865DcA15D5f99195F87a"
 XAUE_ORACLE_PROXY_ADDRESS = "0x0618BD112C396060d2b37B537b3d92e757644169"
+XAUT_CONTRACT_ADDRESS = "0x68749665FF8D2d112Fa859AA293F07A622782F38"
 DEFAULT_ETH_RPC_URL = "https://ethereum.publicnode.com"
+MOCK_RESERVE_ADDRESSES = [
+    "0xb4d65D9b9228eB626EBc770f2C2d9EecECf08d6F",
+    "0x187c9fBF5bd0f266883c03f320260C407c7B4100",
+    "0xe20e9960677fe98992C57AD516b6A41149674521",
+]
 
 XAUE_ABI = [
     {
@@ -173,18 +179,16 @@ def xaue_get_supply() -> dict[str, Any]:
 
 @app.tool()
 def xaue_get_reserves(reserve_addresses: list[str] | None = None) -> dict[str, Any]:
-    """Get per-address XAUt reserve balances (best effort)."""
+    """Get XAUt balances for 3 fixed mock reserve addresses."""
     try:
         w3 = _w3()
-        xaue = _xaue_contract(w3)
-        asset_address = xaue.functions.asset().call()
-        vault_address = xaue.functions.vault().call()
-
-        token = _erc20_contract(w3, asset_address)
+        token = _erc20_contract(w3, XAUT_CONTRACT_ADDRESS)
         token_decimals = token.functions.decimals().call()
         token_symbol = token.functions.symbol().call()
 
-        addresses = reserve_addresses or _discover_reserve_addresses(xaue, vault_address)
+        # Product requirement: use fixed mock reserve addresses only.
+        # Keep the input for backward compatibility, but do not use it.
+        addresses = MOCK_RESERVE_ADDRESSES
 
         balances = []
         for addr in addresses:
@@ -201,13 +205,14 @@ def xaue_get_reserves(reserve_addresses: list[str] | None = None) -> dict[str, A
 
         return {
             "ok": True,
-            "asset_token": _to_checksum(w3, asset_address),
+            "asset_token": _to_checksum(w3, XAUT_CONTRACT_ADDRESS),
             "asset_symbol": token_symbol,
             "asset_decimals": token_decimals,
-            "vault_address": _to_checksum(w3, vault_address),
+            "reserve_addresses_source": "fixed_mock_constants",
             "reserves": balances,
             "notes": [
-                "If reserve_addresses is omitted, this call uses vault + MANAGER_ROLE members as best-effort reserve set."
+                "reserve_addresses input is ignored by design.",
+                "Balances are queried via ERC20 balanceOf for 3 fixed addresses.",
             ],
         }
     except Exception as exc:
@@ -220,26 +225,13 @@ def xaue_get_reserves(reserve_addresses: list[str] | None = None) -> dict[str, A
 
 @app.tool()
 def xaue_get_backing(reserve_addresses: list[str] | None = None) -> dict[str, Any]:
-    """Get total XAUt backing across reserve addresses (best effort)."""
-    reserves_data = xaue_get_reserves(reserve_addresses=reserve_addresses)
-    if not reserves_data.get("ok", False):
-        return {
-            "ok": False,
-            "error": reserves_data.get("error", "unknown error"),
-            "todo": "Provide reserve_addresses explicitly and retry.",
-        }
-
-    total_raw = sum(int(item["balance_raw"]) for item in reserves_data["reserves"])
-    decimals = reserves_data["asset_decimals"]
+    """TODO: total XAUt backing is not finalized yet."""
     return {
-        "ok": True,
-        "asset_token": reserves_data["asset_token"],
-        "asset_symbol": reserves_data["asset_symbol"],
-        "asset_decimals": decimals,
-        "total_backing_raw": str(total_raw),
-        "total_backing": _to_float(total_raw, decimals),
-        "reserves_count": len(reserves_data["reserves"]),
-        "notes": reserves_data["notes"],
+        "ok": False,
+        "todo": "xaue_get_backing is not finalized yet.",
+        "reason": "Current on-chain address discovery cannot guarantee real reserve coverage.",
+        "next_step": "Provide authoritative reserve addresses/data source before enabling real total backing.",
+        "input_received": {"reserve_addresses": reserve_addresses},
     }
 
 
