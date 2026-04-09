@@ -1,11 +1,12 @@
 [project]
 name = "xaue-mcp"
 version = "0.1.0"
-description = "A minimal Python MCP server demo."
+description = "A Python MCP server for XAUE on-chain query tools."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "mcp",
+    "web3",
 ]
 
 [project.scripts]
