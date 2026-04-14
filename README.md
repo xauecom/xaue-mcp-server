@@ -89,15 +89,6 @@ uvx --from git+https://github.com/AntalphaDevs/xaue-mcp xaue-mcp
 
 AI 会自动调用对应的 MCP 工具并返回实时链上数据。
 
-## 本地开发
-
-```bash
-git clone https://github.com/AntalphaDevs/xaue-mcp.git
-cd xaue-mcp
-pip install -e .
-xaue-mcp
-```
-
 ## 合约地址
 
 | 合约 | 地址 | 网络 |
