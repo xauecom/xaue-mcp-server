@@ -1,13 +1,37 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "xaue-mcp"
 version = "0.1.0"
-description = "A Python MCP server for XAUE on-chain query tools."
+description = "A Model Context Protocol (MCP) server for XAUE on-chain query tools."
 readme = "README.md"
+license = "MIT"
 requires-python = ">=3.10"
+keywords = ["mcp", "xaue", "xaut", "ethereum", "defi", "gold"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Office/Business :: Financial",
+]
 dependencies = [
     "mcp",
     "web3",
 ]
 
 [project.scripts]
-xaue-mcp = "main:run"
+xaue-mcp = "xaue_mcp:run"
+
+[project.urls]
+Homepage = "https://github.com/yourname/xaue-mcp"
+Repository = "https://github.com/yourname/xaue-mcp"
+Issues = "https://github.com/yourname/xaue-mcp/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/xaue_mcp"]
