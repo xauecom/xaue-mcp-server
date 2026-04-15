@@ -4,23 +4,23 @@
 [![MCP](https://img.shields.io/badge/protocol-MCP-green)](https://modelcontextprotocol.io)
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow)](LICENSE)
 
-XAUE on-chain query MCP server — 让 AI 助手直接读取以太坊上的 XAUE 实时数据（供应量、NAV、APY、储备金）。
+A Model Context Protocol (MCP) server for querying XAUE on-chain data — enabling AI assistants to read real-time XAUE metrics (supply, NAV, APY, reserves) directly from Ethereum.
 
 ## Quick Start
 
-> 前提条件：安装 [uv](https://docs.astral.sh/uv/getting-started/installation/)（Python 包管理器）
+> Prerequisites: Install [uv](https://docs.astral.sh/uv/getting-started/installation/) (Python package manager)
 
-**无需 clone，一行命令即可运行：**
+**Run directly without cloning:**
 
 ```bash
 uvx --from git+https://github.com/xauecom/xaue-mcp-server xaue-mcp-server
 ```
 
-## 在 AI 客户端中使用
+## Usage with AI Clients
 
 ### Cursor
 
-编辑 `~/.cursor/mcp.json`：
+Edit `~/.cursor/mcp.json`:
 
 ```json
 {
@@ -35,7 +35,7 @@ uvx --from git+https://github.com/xauecom/xaue-mcp-server xaue-mcp-server
 
 ### Claude Desktop
 
-编辑配置文件（macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`）：
+Edit the config file (macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`):
 
 ```json
 {
@@ -48,9 +48,9 @@ uvx --from git+https://github.com/xauecom/xaue-mcp-server xaue-mcp-server
 }
 ```
 
-### 自定义 RPC 节点（可选）
+### Custom RPC Endpoint (Optional)
 
-默认使用公共节点，如需指定私有 RPC，添加 `env` 字段：
+A public RPC node is used by default. To specify a private RPC, add the `env` field:
 
 ```json
 {
@@ -66,43 +66,43 @@ uvx --from git+https://github.com/xauecom/xaue-mcp-server xaue-mcp-server
 }
 ```
 
-## 提供的工具
+## Available Tools
 
-配置完成后，AI 助手可以自动调用以下工具：
+Once configured, the AI assistant can automatically invoke the following tools:
 
-| 工具 | 说明 |
-|------|------|
-| `xaue_get_supply` | 查询 XAUE 流通供应量（totalSupply + decimals） |
-| `xaue_get_nav` | 查询 NAV 净值，获取 XAUt ↔ XAUE 换算率 |
-| `xaue_get_apy` | 查询当前年化收益率（来自 Oracle） |
-| `xaue_get_reserves` | 查询储备地址的 XAUt 余额 |
-| `xaue_get_backing` | （开发中）查询 XAUt 总储备支撑 |
+| Tool | Description |
+|------|-------------|
+| `xaue_get_supply` | Query XAUE circulating supply (totalSupply + decimals) |
+| `xaue_get_nav` | Query NAV (Net Asset Value) and get XAUt ↔ XAUE conversion rate |
+| `xaue_get_apy` | Query the current annual percentage yield (from Oracle) |
+| `xaue_get_reserves` | Query XAUt balances of reserve addresses |
+| `xaue_get_backing` | (WIP) Query total XAUt reserve backing |
 
-### 使用示例
+### Example Prompts
 
-在 Cursor 或 Claude Desktop 中直接向 AI 提问：
+Ask the AI directly in Cursor or Claude Desktop:
 
-- "XAUE 当前的流通量是多少？"
-- "1 XAUt 可以兑换多少 XAUE？"
-- "XAUE 现在的年化收益率是多少？"
-- "查一下储备地址的 XAUt 余额"
+- "What is the current circulating supply of XAUE?"
+- "How many XAUE can 1 XAUt be exchanged for?"
+- "What is the current APY for XAUE?"
+- "Check the XAUt balance of the reserve addresses"
 
-AI 会自动调用对应的 MCP 工具并返回实时链上数据。
+The AI will automatically call the corresponding MCP tools and return real-time on-chain data.
 
-## 合约地址
+## Contract Addresses
 
-| 合约 | 地址 | 网络 |
-|------|------|------|
+| Contract | Address | Network |
+|----------|---------|---------|
 | XAUE | [`0xd5D6840ed95F58FAf537865DcA15D5f99195F87a`](https://etherscan.io/address/0xd5D6840ed95F58FAf537865DcA15D5f99195F87a) | Ethereum |
 | Oracle Proxy | [`0x0618BD112C396060d2b37B537b3d92e757644169`](https://etherscan.io/address/0x0618BD112C396060d2b37B537b3d92e757644169) | Ethereum |
 | XAUt | [`0x68749665FF8D2d112Fa859AA293F07A622782F38`](https://etherscan.io/address/0x68749665FF8D2d112Fa859AA293F07A622782F38) | Ethereum |
 
-## 技术说明
+## Technical Notes
 
-- XAUE 合约为 EIP-1967 代理合约
-- NAV 和 APY 数据从 Oracle Proxy 合约读取
-- 储备查询当前使用 3 个固定的 mock 地址，通过 ERC-20 `balanceOf` 查询 XAUt 余额
-- 服务器使用 stdio 传输协议，与 MCP 客户端通信
+- The XAUE contract is an EIP-1967 proxy contract
+- NAV and APY data are read from the Oracle Proxy contract
+- Reserve queries currently use 3 fixed mock addresses, querying XAUt balances via ERC-20 `balanceOf`
+- The server uses the stdio transport protocol to communicate with MCP clients
 
 ## License
 
