@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "xaue-mcp"
+name = "xaue-mcp-server"
 version = "0.1.0"
 description = "A Model Context Protocol (MCP) server for XAUE on-chain query tools."
 readme = "README.md"
@@ -26,12 +26,12 @@ dependencies = [
 ]
 
 [project.scripts]
-xaue-mcp = "xaue_mcp:run"
+xaue-mcp-server = "xaue_mcp_server:run"
 
 [project.urls]
-Homepage = "https://github.com/yourname/xaue-mcp"
-Repository = "https://github.com/yourname/xaue-mcp"
-Issues = "https://github.com/yourname/xaue-mcp/issues"
+Homepage = "https://github.com/xauecom/xaue-mcp-server"
+Repository = "https://github.com/xauecom/xaue-mcp-server"
+Issues = "https://github.com/xauecom/xaue-mcp-server/issues"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/xaue_mcp"]
+packages = ["src/xaue_mcp_server"]

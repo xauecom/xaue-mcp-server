@@ -1,4 +1,4 @@
-# xaue-mcp
+# xaue-mcp-server
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org)
 [![MCP](https://img.shields.io/badge/protocol-MCP-green)](https://modelcontextprotocol.io)
@@ -13,7 +13,7 @@ XAUE on-chain query MCP server — 让 AI 助手直接读取以太坊上的 XAUE
 **无需 clone，一行命令即可运行：**
 
 ```bash
-uvx --from git+https://github.com/AntalphaDevs/xaue-mcp xaue-mcp
+uvx --from git+https://github.com/xauecom/xaue-mcp-server xaue-mcp-server
 ```
 
 ## 在 AI 客户端中使用
@@ -25,9 +25,9 @@ uvx --from git+https://github.com/AntalphaDevs/xaue-mcp xaue-mcp
 ```json
 {
   "mcpServers": {
-    "xaue-mcp": {
+    "xaue-mcp-server": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/AntalphaDevs/xaue-mcp", "xaue-mcp"]
+      "args": ["--from", "git+https://github.com/xauecom/xaue-mcp-server", "xaue-mcp-server"]
     }
   }
 }
@@ -40,9 +40,9 @@ uvx --from git+https://github.com/AntalphaDevs/xaue-mcp xaue-mcp
 ```json
 {
   "mcpServers": {
-    "xaue-mcp": {
+    "xaue-mcp-server": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/AntalphaDevs/xaue-mcp", "xaue-mcp"]
+      "args": ["--from", "git+https://github.com/xauecom/xaue-mcp-server", "xaue-mcp-server"]
     }
   }
 }
@@ -55,9 +55,9 @@ uvx --from git+https://github.com/AntalphaDevs/xaue-mcp xaue-mcp
 ```json
 {
   "mcpServers": {
-    "xaue-mcp": {
+    "xaue-mcp-server": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/AntalphaDevs/xaue-mcp", "xaue-mcp"],
+      "args": ["--from", "git+https://github.com/xauecom/xaue-mcp-server", "xaue-mcp-server"],
       "env": {
         "ETH_RPC_URL": "https://your-rpc-endpoint.com"
       }

@@ -4,7 +4,7 @@ from typing import Any
 from mcp.server.fastmcp import FastMCP
 from web3 import Web3
 
-app = FastMCP("xaue-mcp")
+app = FastMCP("xaue-mcp-server")
 
 
 XAUE_CONTRACT_ADDRESS = "0xd5D6840ed95F58FAf537865DcA15D5f99195F87a"
