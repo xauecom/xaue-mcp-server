@@ -8,11 +8,8 @@ const XAUE_ORACLE_PROXY_ADDRESS = "0x0618BD112C396060d2b37B537b3d92e757644169";
 const XAUT_CONTRACT_ADDRESS = "0x68749665FF8D2d112Fa859AA293F07A622782F38";
 const DEFAULT_ETH_RPC_URL = "https://ethereum.publicnode.com";
 
-const MOCK_RESERVE_ADDRESSES = [
-  "0xb4d65D9b9228eB626EBc770f2C2d9EecECf08d6F",
-  "0x187c9fBF5bd0f266883c03f320260C407c7B4100",
-  "0xe20e9960677fe98992C57AD516b6A41149674521",
-];
+const RESERVE_ADDRESS = "0x07cd80c066e13679a70e125c76f76e796c8bc748";
+const VAULT_ADDRESS = "0xC86Daf84C01c891B21dEA66f4cA41CD3799f9E6B";
 
 const XAUE_ABI = [
   "function totalSupply() view returns (uint256)",
@@ -151,7 +148,7 @@ server.tool(
 
 server.tool(
   "xaue_get_reserves",
-  "Get XAUt balances for 3 fixed reserve addresses.",
+  "Get XAUt balances for the reserve and vault addresses.",
   {},
   async () => {
     try {
@@ -162,11 +159,17 @@ server.tool(
         token.symbol(),
       ]);
 
+      const addresses = [
+        { address: RESERVE_ADDRESS, label: "reserve" },
+        { address: VAULT_ADDRESS, label: "vault" },
+      ];
+
       const balances = await Promise.all(
-        MOCK_RESERVE_ADDRESSES.map(async (addr) => {
-          const balRaw = await token.balanceOf(addr);
+        addresses.map(async ({ address, label }) => {
+          const balRaw = await token.balanceOf(address);
           return {
-            address: addr,
+            label,
+            address,
             balance_raw: balRaw.toString(),
             balance: toFloat(balRaw, decimals),
             symbol,
@@ -178,11 +181,7 @@ server.tool(
         asset_token: XAUT_CONTRACT_ADDRESS,
         asset_symbol: symbol,
         asset_decimals: Number(decimals),
-        reserve_addresses_source: "fixed_mock_constants",
         reserves: balances,
-        notes: [
-          "Balances are queried via ERC20 balanceOf for 3 fixed addresses.",
-        ],
       });
     } catch (err) {
       return fail(err, "Check ETH_RPC_URL and RPC availability.");
