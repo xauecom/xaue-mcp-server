@@ -8,15 +8,7 @@ A Model Context Protocol (MCP) server for querying XAUE on-chain data — enabli
 
 ## Quick Start
 
-```bash
-npx github:xauecom/xaue-mcp-server
-```
-
-## Usage with AI Clients
-
-### Cursor
-
-Edit `~/.cursor/mcp.json`:
+Add the following to your AI client's MCP config file:
 
 ```json
 {
@@ -29,20 +21,12 @@ Edit `~/.cursor/mcp.json`:
 }
 ```
 
-### Claude Desktop
+### Config File Locations
 
-Edit the config file (macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`):
-
-```json
-{
-  "mcpServers": {
-    "xaue-mcp-server": {
-      "command": "npx",
-      "args": ["-y", "github:xauecom/xaue-mcp-server"]
-    }
-  }
-}
-```
+| Client | Config File Path |
+|--------|-----------------|
+| Cursor | `~/.cursor/mcp.json` |
+| Claude Desktop (macOS) | `~/Library/Application Support/Claude/claude_desktop_config.json` |
 
 ### Custom RPC Endpoint (Optional)
 
