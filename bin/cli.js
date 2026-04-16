@@ -13,16 +13,18 @@ function findCommand(cmd) {
   }
 }
 
+const GITHUB_SRC = "git+https://github.com/xauecom/xaue-mcp-server";
+
 function startServer() {
   if (findCommand("uvx")) {
-    return spawn("uvx", ["xaue-mcp-server"], {
+    return spawn("uvx", ["--from", GITHUB_SRC, "xaue-mcp-server"], {
       stdio: "inherit",
       shell: process.platform === "win32",
     });
   }
 
   if (findCommand("pipx")) {
-    return spawn("pipx", ["run", "xaue-mcp-server"], {
+    return spawn("pipx", ["run", "--spec", GITHUB_SRC, "xaue-mcp-server"], {
       stdio: "inherit",
       shell: process.platform === "win32",
     });
