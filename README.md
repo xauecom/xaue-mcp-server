@@ -1,6 +1,6 @@
 # xaue-mcp-server
 
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org)
+[![Node.js 18+](https://img.shields.io/badge/node-18%2B-blue)](https://nodejs.org)
 [![MCP](https://img.shields.io/badge/protocol-MCP-green)](https://modelcontextprotocol.io)
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow)](LICENSE)
 
@@ -8,18 +8,8 @@ A Model Context Protocol (MCP) server for querying XAUE on-chain data — enabli
 
 ## Quick Start
 
-**Option A — via npx (no install needed, pulls from GitHub directly):**
-
 ```bash
 npx github:xauecom/xaue-mcp-server
-```
-
-**Option B — via uv (Python):**
-
-> Prerequisites: Install [uv](https://docs.astral.sh/uv/getting-started/installation/)
-
-```bash
-uvx --from git+https://github.com/xauecom/xaue-mcp-server xaue-mcp-server
 ```
 
 ## Usage with AI Clients
@@ -28,27 +18,12 @@ uvx --from git+https://github.com/xauecom/xaue-mcp-server xaue-mcp-server
 
 Edit `~/.cursor/mcp.json`:
 
-**npx (from GitHub):**
-
 ```json
 {
   "mcpServers": {
     "xaue-mcp-server": {
       "command": "npx",
       "args": ["-y", "github:xauecom/xaue-mcp-server"]
-    }
-  }
-}
-```
-
-**uv:**
-
-```json
-{
-  "mcpServers": {
-    "xaue-mcp-server": {
-      "command": "uvx",
-      "args": ["--from", "git+https://github.com/xauecom/xaue-mcp-server", "xaue-mcp-server"]
     }
   }
 }
@@ -58,27 +33,12 @@ Edit `~/.cursor/mcp.json`:
 
 Edit the config file (macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`):
 
-**npx (from GitHub):**
-
 ```json
 {
   "mcpServers": {
     "xaue-mcp-server": {
       "command": "npx",
       "args": ["-y", "github:xauecom/xaue-mcp-server"]
-    }
-  }
-}
-```
-
-**uv:**
-
-```json
-{
-  "mcpServers": {
-    "xaue-mcp-server": {
-      "command": "uvx",
-      "args": ["--from", "git+https://github.com/xauecom/xaue-mcp-server", "xaue-mcp-server"]
     }
   }
 }
@@ -112,7 +72,6 @@ Once configured, the AI assistant can automatically invoke the following tools:
 | `xaue_get_nav` | Query NAV (Net Asset Value) and get XAUt ↔ XAUE conversion rate |
 | `xaue_get_apy` | Query the current annual percentage yield (from Oracle) |
 | `xaue_get_reserves` | Query XAUt balances of reserve addresses |
-| `xaue_get_backing` | (WIP) Query total XAUt reserve backing |
 
 ### Example Prompts
 
