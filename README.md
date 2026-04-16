@@ -8,9 +8,15 @@ A Model Context Protocol (MCP) server for querying XAUE on-chain data — enabli
 
 ## Quick Start
 
-> Prerequisites: Install [uv](https://docs.astral.sh/uv/getting-started/installation/) (Python package manager)
+**Option A — via npx (no install needed, pulls from GitHub directly):**
 
-**Run directly without cloning:**
+```bash
+npx github:xauecom/xaue-mcp-server
+```
+
+**Option B — via uv (Python):**
+
+> Prerequisites: Install [uv](https://docs.astral.sh/uv/getting-started/installation/)
 
 ```bash
 uvx --from git+https://github.com/xauecom/xaue-mcp-server xaue-mcp-server
@@ -21,6 +27,21 @@ uvx --from git+https://github.com/xauecom/xaue-mcp-server xaue-mcp-server
 ### Cursor
 
 Edit `~/.cursor/mcp.json`:
+
+**npx (from GitHub):**
+
+```json
+{
+  "mcpServers": {
+    "xaue-mcp-server": {
+      "command": "npx",
+      "args": ["-y", "github:xauecom/xaue-mcp-server"]
+    }
+  }
+}
+```
+
+**uv:**
 
 ```json
 {
@@ -36,6 +57,21 @@ Edit `~/.cursor/mcp.json`:
 ### Claude Desktop
 
 Edit the config file (macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`):
+
+**npx (from GitHub):**
+
+```json
+{
+  "mcpServers": {
+    "xaue-mcp-server": {
+      "command": "npx",
+      "args": ["-y", "github:xauecom/xaue-mcp-server"]
+    }
+  }
+}
+```
+
+**uv:**
 
 ```json
 {
@@ -56,8 +92,8 @@ A public RPC node is used by default. To specify a private RPC, add the `env` fi
 {
   "mcpServers": {
     "xaue-mcp-server": {
-      "command": "uvx",
-      "args": ["--from", "git+https://github.com/xauecom/xaue-mcp-server", "xaue-mcp-server"],
+      "command": "npx",
+      "args": ["-y", "github:xauecom/xaue-mcp-server"],
       "env": {
         "ETH_RPC_URL": "https://your-rpc-endpoint.com"
       }

@@ -1,0 +1,23 @@
+{
+  "name": "xaue-mcp-server",
+  "version": "0.1.0",
+  "description": "XAUE MCP Server — AI assistant for querying XAUE on-chain data (supply, NAV, APY, reserves) from Ethereum.",
+  "keywords": ["mcp", "xaue", "xaut", "ethereum", "defi", "gold", "ai"],
+  "license": "MIT",
+  "author": "xaue",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xauecom/xaue-mcp-server.git"
+  },
+  "homepage": "https://github.com/xauecom/xaue-mcp-server",
+  "bugs": "https://github.com/xauecom/xaue-mcp-server/issues",
+  "bin": {
+    "xaue-mcp-server": "./bin/cli.js"
+  },
+  "files": [
+    "bin/"
+  ],
+  "engines": {
+    "node": ">=16"
+  }
+}
